@@ -31,9 +31,11 @@ A diferencia de un despliegue que "funciona a la primera", este proyecto tuvo do
 
 ## Decisiones más difíciles del proyecto
 
-- **Proceso de Debugging:** Durante el proceso cuando ocurrieron los fallos, pude ver mejor la realidad entre lo diseñado y lo ejecutado. Además, que se entiende por ejemplo que ambas alarmas sirven para eventos distintos.
-- **Fallo de la Alerta en Cloudwatch:** Dude de sí seguir haciendo pruebas para que este fallara y tuve que recurrir a apagar la carga de autoescalado para que pudiera funcionar la alarma.
-- **Proactividad:** Esto me permitió ver el comportamiento real del sistema y saber como puedo mejorar el diseño para un cliente real. 
+- **El proceso de debugging:** enfrentar los dos fallos reales me permitió ver con claridad la distancia entre lo diseñado en los ADR y lo que realmente ocurre al ejecutar en la consola. También terminé de entender que la política de escalado (60%) y la alarma de CloudWatch (80%) no son lo mismo, aunque observen la misma métrica, una actúa automáticamente sobre la infraestructura, la otra solo informa. Verlas fallar por separado fue lo que fijó esa diferencia de forma concreta, no solo teórica.
+
+- **El fallo de la alarma en CloudWatch:** este fue el punto donde más dudé cómo proceder. Consideré seguir insistiendo con pruebas de carga cada vez más largas para "forzar" que la alarma se activara, en vez de detenerme a entender por qué el propio Auto Scaling estaba impidiendo que el promedio de CPU se mantuviera sostenido. Terminé optando por suspender temporalmente el proceso de lanzamiento (Launch) del ASG para aislar la métrica y confirmar la causa real, en vez de seguir probando a ciegas sin saber qué estaba midiendo realmente.
+
+- **Proactividad al diagnosticar en vez de solo repetir:** ambos hallazgos me mostraron el comportamiento real del sistema bajo condiciones que la documentación por sí sola no anticipa. Es justo el criterio que quiero aplicar frente a un cliente real: no basta con que un despliegue "funcione a la primera", hay que verificar que cada componente responde como se diseñó, y saber distinguir cuándo un resultado inesperado es un error de configuración versus un efecto arquitectónico real que vale la pena rediseñar.
 
 ## Mejoras futuras identificadas (fuera del alcance de esta evaluación)
 
