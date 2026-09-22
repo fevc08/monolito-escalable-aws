@@ -1,4 +1,4 @@
-# ADR-001: Estrategia de Migración - Monolito en EC2
+# ADR-0001: Estrategia de Migración - Monolito en EC2
 
 ## Estado
 Aceptado
@@ -29,12 +29,12 @@ Migrar el monolito, sin modificar su arquitectura interna, a instancias **Amazon
 - **Performance Efficiency:** el ASG ajusta la capacidad de cómputo a la demanda real, evitando el sobre/sub-aprovisionamiento del servidor on-premise.
 - **Cost Optimization:** se paga solo por instancias activas (ASG con `min=1`), a diferencia del costo fijo de mantener hardware propio.
 - **Operational Excellence:** CloudWatch entrega visibilidad automatizada, reemplazando el monitoreo manual on-premise.
-- **Security:** el control de acceso se apoya en `LabRole` y Security Groups restrictivos (detalle en ADR-004).
+- **Security:** el control de acceso se apoya en `LabRole` y Security Groups restrictivos (detalle en ADR-0004).
 
 ## Objetivos RTO/RPO
 
 - **RTO objetivo:** minutos, ante la falla de una instancia, el ASG debe reemplazarla automáticamente y el ALB debe dejar de enrutarle tráfico vía health checks, sin intervención manual.
-- **RPO objetivo:** No aplica a nivel de cómputo, el monolito EC2 permanece stateless. El estado persistente se externaliza a DynamoDB; su objetivo de RPO se define en ADR-005.
+- **RPO objetivo:** No aplica a nivel de cómputo, el monolito EC2 permanece stateless. El estado persistente se externaliza a DynamoDB; su objetivo de RPO se define en ADR-0005.
 
 ## Brecha entre diseño ideal y restricciones del AWS Academy Learner Lab
 

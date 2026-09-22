@@ -6,6 +6,8 @@
 
 Una empresa de servicios digitales opera su aplicación en un único servidor on-premise, lo que provoca caídas en picos de tráfico y altos costos de mantenimiento. El objetivo de este proyecto es migrar dicha aplicación a AWS **manteniendo el enfoque monolítico** (sin descomponer en microservicios), pero resolviendo los problemas de disponibilidad y escalabilidad mediante servicios administrados de AWS.
 
+![Arquitectura del monolito escalable](diagrams/export/arquitectura-monolito-escalable.png)
+
 ## 🎯 Objetivo de la arquitectura
 
 - **Escalabilidad automática** ante picos de demanda (Auto Scaling Group)
@@ -45,20 +47,20 @@ Internet → ALB (multi-AZ) → Auto Scaling Group → EC2 (monolito)
 
 | ADR | Decisión |
 |---|---|
-| [ADR-001](./adr/ADR-001-estrategia-migracion-monolito-ec2.md) | Estrategia de migración: monolito en EC2 |
-| [ADR-002](./adr/ADR-002-seleccion-load-balancer.md) | Selección de Load Balancer |
-| [ADR-003](./adr/ADR-003-estrategia-auto-scaling.md) | Estrategia de Auto Scaling |
-| [ADR-004](./adr/ADR-004-monitoreo-y-alarmas.md) | Monitoreo y alarmas |
-| [ADR-005](./adr/ADR-005-persistencia-dynamodb.md) | Persistencia con DynamoDB *(opcional)* |
+| [ADR-0001](./adr/ADR-0001-estrategia-migracion-monolito-ec2.md) | Estrategia de migración: monolito en EC2 |
+| [ADR-0002](./adr/ADR-0002-seleccion-load-balancer.md) | Selección de Load Balancer |
+| [ADR-0003](./adr/ADR-0003-estrategia-auto-scaling.md) | Estrategia de Auto Scaling |
+| [ADR-0004](./adr/ADR-0004-monitoreo-y-alarmas.md) | Monitoreo y alarmas |
+| [ADR-0005](./adr/ADR-0005-persistencia-dynamodb.md) | Persistencia con DynamoDB *(opcional)* |
 
 ## ✅ Estado del proyecto
 
-- [ ] Lección 1 — Despliegue base en EC2
-- [ ] Lección 2 — Balanceo de carga (ALB)
-- [ ] Lección 3 — Auto Scaling Group
-- [ ] Lección 4 — Monitoreo con CloudWatch
-- [ ] Lección 5 — Persistencia con DynamoDB (opcional)
-- [ ] Lección 6 — Diagrama de arquitectura
+- [x] Lección 1 — Despliegue base en EC2
+- [x] Lección 2 — Balanceo de carga (ALB)
+- [x] Lección 3 — Auto Scaling Group
+- [x] Lección 4 — Monitoreo con CloudWatch
+- [x] Lección 5 — Persistencia con DynamoDB (opcional)
+- [x] Lección 6 — Diagrama de arquitectura
 
 ## 👤 Autor
 

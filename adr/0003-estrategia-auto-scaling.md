@@ -1,4 +1,4 @@
-# ADR-003: Estrategia de Auto Scaling
+# ADR-0003: Estrategia de Auto Scaling
 
 ## Estado
 Aceptado

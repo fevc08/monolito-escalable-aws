@@ -1,4 +1,4 @@
-# ADR-005: Persistencia con DynamoDB
+# ADR-0005: Persistencia con DynamoDB
 
 ## Estado
 Aceptado
@@ -33,7 +33,7 @@ Implementar una tabla **Amazon DynamoDB** llamada `Visitas`, con:
 
 - **Reliability:** DynamoDB replica los datos automáticamente entre múltiples zonas de disponibilidad dentro de la región, sin configuración adicional.
 - **Performance Efficiency:** al ser un servicio administrado serverless, escala transparentemente sin intervención manual, consistente con el enfoque de "administrado" ya aplicado en ALB/ASG.
-- **Cost Optimization:** el modo On-Demand evita pagar por capacidad no utilizada, alineado con la misma lógica de costos aplicada en ADR-003 (ASG `min=1`).
+- **Cost Optimization:** el modo On-Demand evita pagar por capacidad no utilizada, alineado con la misma lógica de costos aplicada en ADR-0003 (ASG `min=1`).
 - **Security:** el acceso desde la instancia EC2 hacia DynamoDB se realiza a través de `LabRole` (no se crean credenciales estáticas ni se embeben access keys en el User Data).
 
 ## Objetivos RTO/RPO
@@ -47,7 +47,7 @@ Implementar una tabla **Amazon DynamoDB** llamada `Visitas`, con:
 |---|---|---|
 | Point-in-Time Recovery (PITR) activado | No exigido por la consigna; tiempo de sesión del Lab acotado | Se documenta como mejora futura, no se activa en esta fase |
 | Cifrado con clave KMS administrada por el cliente (CMK) | `kms:CreateKey` restringido para roles personalizados en el Lab | Se usa el cifrado por defecto de DynamoDB (clave administrada por AWS), suficiente para este ejercicio |
-| Acceso vía rol IAM con política de mínimo privilegio específica para la tabla `Visitas` | `iam:CreateRole` y `iam:CreatePolicy` bloqueados en el Lab | Se usa `LabRole`, cuyo alcance de permisos es más amplio de lo ideal - limitación conocida y aceptada, consistente con ADR-001 |
+| Acceso vía rol IAM con política de mínimo privilegio específica para la tabla `Visitas` | `iam:CreateRole` y `iam:CreatePolicy` bloqueados en el Lab | Se usa `LabRole`, cuyo alcance de permisos es más amplio de lo ideal - limitación conocida y aceptada, consistente con ADR-0001 |
 
 ## Consecuencias
 

@@ -1,4 +1,4 @@
-# ADR-002: Selección de Load Balancer
+# ADR-0002: Selección de Load Balancer
 
 ## Estado
 Aceptado

@@ -1,11 +1,11 @@
-# ADR-004: Monitoreo y Alarmas
+# ADR-0004: Monitoreo y Alarmas
 
 ## Estado
 Aceptado
 
 ## Contexto
 
-El Auto Scaling Group (ADR-003) escala automáticamente al superar 60% de CPU, hasta un máximo de 2 instancias. Sin embargo, el escalado automático puede no ser suficiente ante picos extremos de tráfico (limitado por `max=2`), o puede tardar varios minutos en reaccionar (monitoreo básico de 5 min). Se necesita una señal de **visibilidad operacional** independiente que alerte cuando la infraestructura está bajo presión, más allá de lo que el Auto Scaling puede resolver por sí solo.
+El Auto Scaling Group (ADR-0003) escala automáticamente al superar 60% de CPU, hasta un máximo de 2 instancias. Sin embargo, el escalado automático puede no ser suficiente ante picos extremos de tráfico (limitado por `max=2`), o puede tardar varios minutos en reaccionar (monitoreo básico de 5 min). Se necesita una señal de **visibilidad operacional** independiente que alerte cuando la infraestructura está bajo presión, más allá de lo que el Auto Scaling puede resolver por sí solo.
 
 ## Decisión
 
@@ -28,12 +28,12 @@ Crear una **alarma de Amazon CloudWatch** sobre la métrica `CPUUtilization`, ag
 
 - **Operational Excellence:** la alarma provee una señal explícita de cuándo la infraestructura está operando cerca de su límite de diseño, sin necesidad de revisar métricas manualmente.
 - **Reliability:** actúa como segunda línea de defensa, si el ASG alcanza su `max=2` y el CPU se mantiene sobre 80%, la alarma indica que la capacidad configurada ya no es suficiente para la demanda actual.
-- **Cost Optimization:** se usa monitoreo básico (gratuito, granularidad de 5 min) en lugar de monitoreo detallado (de pago), consistente con la decisión de costos tomada en ADR-003.
+- **Cost Optimization:** se usa monitoreo básico (gratuito, granularidad de 5 min) en lugar de monitoreo detallado (de pago), consistente con la decisión de costos tomada en ADR-0003.
 - **Security:** no requiere permisos IAM adicionales a los ya cubiertos por `LabRole`.
 
 ## Objetivos RTO/RPO
 
-- **Relación con RTO:** esta alarma no ejecuta una acción de recuperación automática - es un mecanismo de **detección**, no de remediación. Complementa el RTO de escalado definido en ADR-003: si el sistema entra en estado `ALARM` de forma sostenida, es una señal de que el `max=2` actual podría no ser suficiente y debe revisarse manualmente.
+- **Relación con RTO:** esta alarma no ejecuta una acción de recuperación automática - es un mecanismo de **detección**, no de remediación. Complementa el RTO de escalado definido en ADR-0003: si el sistema entra en estado `ALARM` de forma sostenida, es una señal de que el `max=2` actual podría no ser suficiente y debe revisarse manualmente.
 - **RPO objetivo:** No aplica - la alarma monitorea utilización de cómputo, no datos persistentes.
 
 ## Brecha entre diseño ideal y restricciones del AWS Academy Learner Lab
@@ -51,7 +51,7 @@ Crear una **alarma de Amazon CloudWatch** sobre la métrica `CPUUtilization`, ag
 
 **Negativas:**
 - Al no configurar una acción de notificación (SNS), la alarma requiere revisión manual de la consola para ser detectada, aceptable para este ejercicio, no recomendable en un entorno productivo real.
-- El monitoreo se basa únicamente en CPU; no captura degradación a nivel de aplicación (latencia, errores 5xx), lo cual queda como limitación conocida, consistente con lo señalado en ADR-003.
+- El monitoreo se basa únicamente en CPU; no captura degradación a nivel de aplicación (latencia, errores 5xx), lo cual queda como limitación conocida, consistente con lo señalado en ADR-0003.
 
 ## Referencias
 
